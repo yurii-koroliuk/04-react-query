@@ -8,12 +8,14 @@ export const fetchMovies = async (
   query: string,
   page: number = 1
 ): Promise<MovieResponse> => {
-  const response = await axios.get(BASE_URL, {
+  const config = {
     params: {
-      api_key: API_KEY,
       query,
       page,
+      api_key: API_KEY,
     },
-  });
+  };
+
+  const response = await axios.get(BASE_URL, config);
   return response.data;
 };
