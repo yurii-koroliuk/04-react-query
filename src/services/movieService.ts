@@ -10,23 +10,20 @@ export const fetchMovies = async (
   page: number = 1,
   useToken: boolean = false
 ): Promise<MovieResponse> => {
-  const config = {
-    params: { query, page },
-    ...(useToken
-      ? {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        }
-      : {
-          params: {
-            query,
-            page,
-            api_key: API_KEY,
-          },
-        }),
-  };
-
+  const config = useToken
+    ? {
+        params: { query, page },
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      }
+    : {
+        params: {
+          query,
+          page,
+          api_key: API_KEY,
+        },
+      };
   const response = await axios.get(BASE_URL, config);
   return response.data;
 };

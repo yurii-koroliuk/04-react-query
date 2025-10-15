@@ -21,7 +21,7 @@ export default function App() {
     queryKey: ['movies', query, page],
     queryFn: () => fetchMovies(query, page),
     enabled: !!query,
-    staleTime: 1000 * 60 * 5, // 5 хвилин кешу
+    staleTime: 1000 * 60 * 5, // 5min cache
   });
 
   const handleSearch = (searchQuery: string) => {
