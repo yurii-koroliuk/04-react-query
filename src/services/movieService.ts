@@ -1,12 +1,10 @@
 import axios from "axios";
 import type { MovieResponse } from "../types/movie";
 
-
 const fetchMovies = async (search: string, currentPage: number): Promise<MovieResponse> => {
-  const BASE_URL = "https://api.themoviedb.org/3/search";
-  const ENDPOINT = `/movie`;
-  const url = BASE_URL + ENDPOINT;
+  const token = import.meta.env.VITE_TMDB_TOKEN;
 
+  const url = "https://api.themoviedb.org/3/search/movie";
 
   const response = await axios.get<MovieResponse>(url, {
     params: {
@@ -16,9 +14,11 @@ const fetchMovies = async (search: string, currentPage: number): Promise<MovieRe
     },
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+      Authorization: `Bearer ${token}`,
     },
   });
+
   return response.data;
 };
+
 export default fetchMovies;
